@@ -121,6 +121,9 @@ public class Desktop extends JFrame
             } else if (menuBar.jMenuItemCategory4.isSelected())
             {
                 category = 4;
+            } else if (menuBar.jMenuItemCategory5.isSelected())
+            {
+                category = 5;
             }
 
             // get level from menu :

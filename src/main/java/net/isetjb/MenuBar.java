@@ -58,6 +58,7 @@ public class MenuBar extends JMenuBar
     JRadioButtonMenuItem jMenuItemCategory2 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemCategory2"));
     JRadioButtonMenuItem jMenuItemCategory3 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemCategory3"));
     JRadioButtonMenuItem jMenuItemCategory4 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemCategory4"));
+    JRadioButtonMenuItem jMenuItemCategory5 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemCategory5"));
 
     // level :
     JMenu jMenuLevel = new JMenu(I18N.lang("menubar.jMenuLevel"));
@@ -99,6 +100,7 @@ public class MenuBar extends JMenuBar
         jMenuCategory.add(jMenuItemCategory2);
         jMenuCategory.add(jMenuItemCategory3);
         jMenuCategory.add(jMenuItemCategory4);
+        jMenuCategory.add(jMenuItemCategory5);
 
         ButtonGroup radioGroup1 = new ButtonGroup();
         radioGroup1.add(jMenuItemCategory0);
@@ -106,6 +108,7 @@ public class MenuBar extends JMenuBar
         radioGroup1.add(jMenuItemCategory2);
         radioGroup1.add(jMenuItemCategory3);
         radioGroup1.add(jMenuItemCategory4);
+        radioGroup1.add(jMenuItemCategory5);
 
         // level :
         jMenuSettings.add(jMenuLevel);
