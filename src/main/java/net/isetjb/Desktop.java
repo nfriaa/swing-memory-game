@@ -48,7 +48,7 @@ public class Desktop extends JFrame
     final static Logger log = Logger.getLogger(Desktop.class);
 
     JDesktopPane jDesktopPane = new JDesktopPane();
-    JLabel jLabelFooterState = new JLabel(I18N.lang("desktop.jLabelFooterState") + System.getProperty("os.name"));
+    JLabel jLabelFooterState = new JLabel(I18N.lang("desktop.jLabelFooterState") + System.getProperty("os.name") + " " + System.getProperty("os.version"));
 
     // internal frames :
     FrameAbout frameAbout = new FrameAbout();
@@ -118,6 +118,9 @@ public class Desktop extends JFrame
             } else if (menuBar.jMenuItemCategory3.isSelected())
             {
                 category = 3;
+            } else if (menuBar.jMenuItemCategory4.isSelected())
+            {
+                category = 4;
             }
 
             // get level from menu :
