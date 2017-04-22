@@ -23,16 +23,21 @@
  */
 package net.isetjb;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import net.isetjb.config.I18N;
 import java.awt.GridLayout;
 import java.awt.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.InputVerifier;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import org.apache.log4j.Logger;
 
@@ -45,64 +50,71 @@ public class FrameGame extends JInternalFrame
 {
     final static Logger log = Logger.getLogger(FrameGame.class);
 
-    // icones :
-    ImageIcon icone0 = new ImageIcon(getClass().getClassLoader().getResource("images/icone0.png"));
+    JPanel jPanelGrid = new JPanel();
+    JPanel jPanelFooter = new JPanel();
+    JLabel jLabelFooter = new JLabel();
 
-    ImageIcon icone1 = new ImageIcon(getClass().getClassLoader().getResource("images/icone1.png"));
-    ImageIcon icone2 = new ImageIcon(getClass().getClassLoader().getResource("images/icone2.png"));
-    ImageIcon icone3 = new ImageIcon(getClass().getClassLoader().getResource("images/icone3.png"));
-    ImageIcon icone4 = new ImageIcon(getClass().getClassLoader().getResource("images/icone4.png"));
-    ImageIcon icone5 = new ImageIcon(getClass().getClassLoader().getResource("images/icone5.png"));
-    ImageIcon icone6 = new ImageIcon(getClass().getClassLoader().getResource("images/icone6.png"));
-    ImageIcon icone7 = new ImageIcon(getClass().getClassLoader().getResource("images/icone7.png"));
-    ImageIcon icone8 = new ImageIcon(getClass().getClassLoader().getResource("images/icone8.png"));
+    ImageIcon hiddenIcone = new ImageIcon(getClass().getClassLoader().getResource("images/hiddenIcone.png"));
 
-    ImageIcon icone9 = new ImageIcon(getClass().getClassLoader().getResource("images/icone1.png"));
-    ImageIcon icone10 = new ImageIcon(getClass().getClassLoader().getResource("images/icone2.png"));
-    ImageIcon icone11 = new ImageIcon(getClass().getClassLoader().getResource("images/icone3.png"));
-    ImageIcon icone12 = new ImageIcon(getClass().getClassLoader().getResource("images/icone4.png"));
-    ImageIcon icone13 = new ImageIcon(getClass().getClassLoader().getResource("images/icone5.png"));
-    ImageIcon icone14 = new ImageIcon(getClass().getClassLoader().getResource("images/icone6.png"));
-    ImageIcon icone15 = new ImageIcon(getClass().getClassLoader().getResource("images/icone7.png"));
-    ImageIcon icone16 = new ImageIcon(getClass().getClassLoader().getResource("images/icone8.png"));
+    int score = 0;
+    final int category;
+    final int level;
+    final int MAX_ICONES_NUMBER = 18;
+    final int ICONES_NUMBER;
+    final int GRID_WIDTH;
+    final int GRID_HEIGHT;
 
-    ImageIcon icones[] =
-    {
-        icone1, icone2, icone3, icone4, icone5, icone6, icone7, icone8, icone9, icone10, icone11, icone12, icone13, icone14, icone15, icone16
-    };
-
-    // boutons :
-    JToggleButton jButton1 = new JToggleButton(icone0);
-    JToggleButton jButton11 = new JToggleButton(icone0);
-    JToggleButton jButton2 = new JToggleButton(icone0);
-    JToggleButton jButton22 = new JToggleButton(icone0);
-    JToggleButton jButton3 = new JToggleButton(icone0);
-    JToggleButton jButton33 = new JToggleButton(icone0);
-    JToggleButton jButton4 = new JToggleButton(icone0);
-    JToggleButton jButton44 = new JToggleButton(icone0);
-
-    JToggleButton jButton5 = new JToggleButton(icone0);
-    JToggleButton jButton55 = new JToggleButton(icone0);
-    JToggleButton jButton6 = new JToggleButton(icone0);
-    JToggleButton jButton66 = new JToggleButton(icone0);
-    JToggleButton jButton7 = new JToggleButton(icone0);
-    JToggleButton jButton77 = new JToggleButton(icone0);
-    JToggleButton jButton8 = new JToggleButton(icone0);
-    JToggleButton jButton88 = new JToggleButton(icone0);
-
-    JToggleButton buttons[] =
-    {
-        jButton1, jButton11, jButton2, jButton22, jButton3, jButton33, jButton4, jButton44, jButton5, jButton55, jButton6, jButton66, jButton7, jButton77, jButton8, jButton88
-    };
+    ArrayList<ImageIcon> icones = new ArrayList<>();
+    ArrayList<JToggleButton> buttons = new ArrayList<>();
 
     /**
      * Constructor.
      */
-    public FrameGame()
+    public FrameGame(int category, int level)
     {
         log.debug("START constructor...");
 
-        setTitle(I18N.lang("framegame.title"));
+        this.category = category;
+        this.level = level;
+
+        switch (level)
+        {
+            // beginner
+            case 0:
+                ICONES_NUMBER = 4;
+                GRID_HEIGHT = 2;
+                GRID_WIDTH = 4;
+                break;
+
+            // medium
+            case 1:
+                ICONES_NUMBER = 8;
+                GRID_HEIGHT = 4;
+                GRID_WIDTH = 4;
+                break;
+
+            // intermediate
+            case 2:
+                ICONES_NUMBER = 9;
+                GRID_HEIGHT = 3;
+                GRID_WIDTH = 6;
+                break;
+
+            // advanced
+            case 3:
+                ICONES_NUMBER = 18;
+                GRID_HEIGHT = 6;
+                GRID_WIDTH = 6;
+                break;
+
+            default:
+                ICONES_NUMBER = 4;
+                GRID_HEIGHT = 2;
+                GRID_WIDTH = 4;
+                break;
+        }
+
+        setTitle(I18N.lang("framegame.title") + " [ " + I18N.lang("menubar.jMenuItemCategory" + category) + " - " + I18N.lang("menubar.jMenuItemLevel" + level) + " ]");
         setLocation(new Random().nextInt(120) + 20, new Random().nextInt(120) + 20);
 
         setClosable(true);
@@ -111,33 +123,24 @@ public class FrameGame extends JInternalFrame
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        // names :
-        jButton1.setName("1");
-        jButton11.setName("1");
-        jButton2.setName("2");
-        jButton22.setName("2");
-        jButton3.setName("3");
-        jButton33.setName("3");
-        jButton4.setName("4");
-        jButton44.setName("4");
-        jButton5.setName("5");
-        jButton55.setName("5");
-        jButton6.setName("6");
-        jButton66.setName("6");
-        jButton7.setName("7");
-        jButton77.setName("7");
-        jButton8.setName("8");
-        jButton88.setName("8");
+        initIcones();
+        initButtons();
 
-        //add compnent to the frame :
-        getContentPane().setLayout(new GridLayout(4, 4));
+        jPanelGrid.setLayout(new GridLayout(GRID_HEIGHT, GRID_WIDTH));
+        getContentPane().add(jPanelGrid, BorderLayout.CENTER);
 
+        jPanelFooter.setLayout(new FlowLayout(FlowLayout.LEFT));
+        jPanelFooter.add(jLabelFooter);
+        getContentPane().add(jPanelFooter, BorderLayout.SOUTH);
+
+        updatejLabelFooterText(false);
+
+        // events :
         for (JToggleButton button : buttons)
         {
-            // the hidden icone :
-            button.setSelectedIcon(icones[Integer.parseInt(button.getName())]);
+            button.setSelectedIcon(icones.get(Integer.parseInt(button.getName())));
 
-            getContentPane().add(button);
+            jPanelGrid.add(button);
 
             button.addActionListener((ActionEvent ev) ->
             {
@@ -145,7 +148,10 @@ public class FrameGame extends JInternalFrame
 
                 log.debug("count selected buttons : " + countSelectedButtons());
 
-                // ne pas permettre le retour à false :
+                score++;
+                updatejLabelFooterText(false);
+
+                // dont permit hide icone :
                 if (!button.isSelected())
                 {
                     button.setSelected(true);
@@ -167,6 +173,63 @@ public class FrameGame extends JInternalFrame
         log.debug("End of constructor.");
     }
 
+    public void updatejLabelFooterText(boolean success)
+    {
+        // construct footer text :
+        String temp = "<html>";
+
+        temp += "[ " + I18N.lang("menubar.jMenuItemCategory" + category);
+        temp += " - " + I18N.lang("menubar.jMenuItemLevel" + level);
+        temp += " ] ";
+
+        if (success)
+        {
+            temp += "<strong style='color: white; background-color: green;'> &nbsp;";
+        }
+
+        temp += I18N.lang("framegame.jLabelFooter.score") + ": " + score;
+
+        if (success)
+        {
+            temp += " </strong>";
+        }
+
+        temp += "</html>";
+
+        jLabelFooter.setText(temp);
+    }
+
+    public void initIcones()
+    {
+        for (int i = 0; i < MAX_ICONES_NUMBER; i++)
+        {
+            icones.add(new ImageIcon(getClass().getClassLoader().getResource("images/category" + category + "/icone" + i + ".png")));
+        }
+
+        Collections.shuffle(icones);
+    }
+
+    public void initButtons()
+    {
+        // first half :
+        for (int i = 0; i < ICONES_NUMBER; i++)
+        {
+            JToggleButton tempButton = new JToggleButton(hiddenIcone);
+            tempButton.setName("" + i);
+            buttons.add(tempButton);
+        }
+
+        // second half :
+        for (int i = 0; i < ICONES_NUMBER; i++)
+        {
+            JToggleButton tempButton = new JToggleButton(hiddenIcone);
+            tempButton.setName("" + i);
+            buttons.add(tempButton);
+        }
+
+        Collections.shuffle(buttons);
+    }
+
     public int countSelectedButtons()
     {
         int count = 0;
@@ -174,6 +237,21 @@ public class FrameGame extends JInternalFrame
         for (JToggleButton button : buttons)
         {
             if (button.isSelected() && button.isEnabled())
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public int countRemainingButtons()
+    {
+        int count = 0;
+
+        for (JToggleButton button : buttons)
+        {
+            if (!button.isSelected() && button.isEnabled())
             {
                 count++;
             }
@@ -210,11 +288,17 @@ public class FrameGame extends JInternalFrame
             log.debug("First selected : " + selection.get(0).getName());
             log.debug("Second selected : " + selection.get(1).getName());
 
-            if (selection.get(0).getName() == selection.get(1).getName())
+            if (selection.get(0).getName().equals(selection.get(1).getName()))
             {
                 selection.get(0).setEnabled(false);
                 selection.get(1).setEnabled(false);
                 log.debug("Good Attempt !");
+                log.debug("Remaining buttons : " + countRemainingButtons());
+                if (countRemainingButtons() == 0)
+                {
+                    log.debug("Congratulation, game successfully completed !");
+                    updatejLabelFooterText(true);
+                }
             } else
             {
                 log.debug("Wrong Attempt !");

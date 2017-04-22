@@ -92,27 +92,53 @@ public class Desktop extends JFrame
         });
 
         // jMenuItemFrameAbout :
-        menuBar.jMenuItemFrameAbout.addActionListener(new ActionListener()
+        menuBar.jMenuItemFrameAbout.addActionListener((ActionEvent ev) ->
         {
-            public void actionPerformed(ActionEvent ev)
-            {
-                log.debug("ActionEvent on " + ev.getActionCommand());
+            log.debug("ActionEvent on " + ev.getActionCommand());
 
-                frameAbout.setVisible(true);
-            }
+            frameAbout.setVisible(true);
         });
 
-        // jMenuItemFrame1 :
-        menuBar.jMenuItemFrameGame.addActionListener(new ActionListener()
+        // jMenuItemFrameGame :
+        menuBar.jMenuItemFrameGame.addActionListener((ActionEvent ev) ->
         {
-            public void actionPerformed(ActionEvent ev)
-            {
-                log.debug("ActionEvent on " + ev.getActionCommand());
+            log.debug("ActionEvent on " + ev.getActionCommand());
 
-                frameGame = new FrameGame();
-                jDesktopPane.add(frameGame);
-                frameGame.setVisible(true);
+            // get category from menu :
+            int category = 0;
+            if (menuBar.jMenuItemCategory0.isSelected())
+            {
+                category = 0;
+            } else if (menuBar.jMenuItemCategory1.isSelected())
+            {
+                category = 1;
+            } else if (menuBar.jMenuItemCategory2.isSelected())
+            {
+                category = 2;
+            } else if (menuBar.jMenuItemCategory3.isSelected())
+            {
+                category = 3;
             }
+
+            // get level from menu :
+            int level = 0;
+            if (menuBar.jMenuItemLevel0.isSelected())
+            {
+                level = 0;
+            } else if (menuBar.jMenuItemLevel1.isSelected())
+            {
+                level = 1;
+            } else if (menuBar.jMenuItemLevel2.isSelected())
+            {
+                level = 2;
+            } else if (menuBar.jMenuItemLevel3.isSelected())
+            {
+                level = 3;
+            }
+
+            frameGame = new FrameGame(category, level);
+            jDesktopPane.add(frameGame);
+            frameGame.setVisible(true);
         });
 
         // window closing event :

@@ -26,9 +26,11 @@ package net.isetjb;
 import net.isetjb.config.I18N;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 import org.apache.log4j.Logger;
 
@@ -45,6 +47,23 @@ public class MenuBar extends JMenuBar
     JMenu jMenuFile = new JMenu(I18N.lang("menubar.jMenuFile"));
     JMenuItem jMenuItemFrameGame = new JMenuItem(I18N.lang("menubar.jMenuItemFrameGame"));
     JMenuItem jMenuItemQuit = new JMenuItem(I18N.lang("menubar.jMenuItemQuit"));
+
+    // settings :
+    JMenu jMenuSettings = new JMenu(I18N.lang("menubar.jMenuSettings"));
+
+    // category :
+    JMenu jMenuCategory = new JMenu(I18N.lang("menubar.jMenuCategory"));
+    JRadioButtonMenuItem jMenuItemCategory0 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemCategory0"), true);
+    JRadioButtonMenuItem jMenuItemCategory1 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemCategory1"));
+    JRadioButtonMenuItem jMenuItemCategory2 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemCategory2"));
+    JRadioButtonMenuItem jMenuItemCategory3 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemCategory3"));
+
+    // level :
+    JMenu jMenuLevel = new JMenu(I18N.lang("menubar.jMenuLevel"));
+    JRadioButtonMenuItem jMenuItemLevel0 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemLevel0"), true);
+    JRadioButtonMenuItem jMenuItemLevel1 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemLevel1"));
+    JRadioButtonMenuItem jMenuItemLevel2 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemLevel2"));
+    JRadioButtonMenuItem jMenuItemLevel3 = new JRadioButtonMenuItem(I18N.lang("menubar.jMenuItemLevel3"));
 
     // help :
     JMenu jMenuHelp = new JMenu(I18N.lang("menubar.jMenuHelp"));
@@ -68,6 +87,35 @@ public class MenuBar extends JMenuBar
 
         jMenuItemQuit.setAccelerator(KeyStroke.getKeyStroke('Q', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         jMenuFile.add(jMenuItemQuit);
+
+        // settings :
+        add(jMenuSettings);
+
+        // category :
+        jMenuSettings.add(jMenuCategory);
+        jMenuCategory.add(jMenuItemCategory0);
+        jMenuCategory.add(jMenuItemCategory1);
+        jMenuCategory.add(jMenuItemCategory2);
+        jMenuCategory.add(jMenuItemCategory3);
+
+        ButtonGroup radioGroup1 = new ButtonGroup();
+        radioGroup1.add(jMenuItemCategory0);
+        radioGroup1.add(jMenuItemCategory1);
+        radioGroup1.add(jMenuItemCategory2);
+        radioGroup1.add(jMenuItemCategory3);
+
+        // category :
+        jMenuSettings.add(jMenuLevel);
+        jMenuLevel.add(jMenuItemLevel0);
+        jMenuLevel.add(jMenuItemLevel1);
+        jMenuLevel.add(jMenuItemLevel2);
+        jMenuLevel.add(jMenuItemLevel3);
+
+        ButtonGroup radioGroup2 = new ButtonGroup();
+        radioGroup2.add(jMenuItemLevel0);
+        radioGroup2.add(jMenuItemLevel1);
+        radioGroup2.add(jMenuItemLevel2);
+        radioGroup2.add(jMenuItemLevel3);
 
         // help :
         add(jMenuHelp);
