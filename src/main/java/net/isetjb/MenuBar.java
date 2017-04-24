@@ -46,6 +46,7 @@ public class MenuBar extends JMenuBar
     // file :
     JMenu jMenuFile = new JMenu(I18N.lang("menubar.jMenuFile"));
     JMenuItem jMenuItemFrameGame = new JMenuItem(I18N.lang("menubar.jMenuItemFrameGame"));
+    JMenuItem jMenuItemFrameBestScore = new JMenuItem(I18N.lang("menubar.jMenuItemFrameBestScore"));
     JMenuItem jMenuItemQuit = new JMenuItem(I18N.lang("menubar.jMenuItemQuit"));
 
     // settings :
@@ -84,6 +85,9 @@ public class MenuBar extends JMenuBar
 
         jMenuItemFrameGame.setAccelerator(KeyStroke.getKeyStroke('J', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
         jMenuFile.add(jMenuItemFrameGame);
+
+        jMenuItemFrameBestScore.setAccelerator(KeyStroke.getKeyStroke('B', Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()));
+        jMenuFile.add(jMenuItemFrameBestScore);
 
         jMenuFile.addSeparator();
 

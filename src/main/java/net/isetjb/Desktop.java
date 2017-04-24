@@ -35,6 +35,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
+import net.isetjb.bestscore.BestScoreFrame;
 import org.apache.log4j.Logger;
 
 /**
@@ -53,6 +54,7 @@ public class Desktop extends JFrame
     // internal frames :
     FrameAbout frameAbout = new FrameAbout();
     FrameGame frameGame;
+    BestScoreFrame bsFrame = new BestScoreFrame();
 
     // menu :
     MenuBar menuBar = new MenuBar();
@@ -75,6 +77,7 @@ public class Desktop extends JFrame
 
         // add internal frames to desktop :
         jDesktopPane.add(frameAbout);
+        jDesktopPane.add(bsFrame);
 
         // add the menu bar :
         setJMenuBar(menuBar);
@@ -145,6 +148,17 @@ public class Desktop extends JFrame
             frameGame = new FrameGame(category, level);
             jDesktopPane.add(frameGame);
             frameGame.setVisible(true);
+        });
+
+        // jMenuItemFrameBestScore :
+        menuBar.jMenuItemFrameBestScore.addActionListener((ActionEvent ev) ->
+        {
+            log.debug("ActionEvent on " + ev.getActionCommand());
+
+            // refresh data :
+            bsFrame.jTable1.setModel(bsFrame.getData(-1, -1));
+
+            bsFrame.setVisible(true);
         });
 
         // window closing event :
