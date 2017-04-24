@@ -27,22 +27,23 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import net.isetjb.config.I18N;
 import java.awt.GridLayout;
-import java.awt.List;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Random;
 import javax.swing.ImageIcon;
-import javax.swing.InputVerifier;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import net.isetjb.bestscore.BestScoreBean;
+import net.isetjb.bestscore.BestScoreRepository;
 import org.apache.log4j.Logger;
 
 /**
- * FrameJeux class.
+ * FrameGame class.
  *
  * @author Nafaa Friaa (nafaa.friaa@isetjb.rnu.tn)
  */
@@ -115,7 +116,7 @@ public class FrameGame extends JInternalFrame
         }
 
         setTitle(I18N.lang("framegame.title") + " [ " + I18N.lang("menubar.jMenuItemCategory" + category) + " - " + I18N.lang("menubar.jMenuItemLevel" + level) + " ]");
-        setLocation(new Random().nextInt(120) + 20, new Random().nextInt(120) + 20);
+        setLocation(new Random().nextInt(150) + 50, new Random().nextInt(120) + 20);
 
         setClosable(true);
         setIconifiable(true);
@@ -298,11 +299,42 @@ public class FrameGame extends JInternalFrame
                 {
                     log.debug("Congratulation, game successfully completed !");
                     updatejLabelFooterText(true);
+                    verifyBestScore();
                 }
             } else
             {
                 log.debug("Wrong Attempt !");
             }
+        }
+    }
+
+    public void verifyBestScore()
+    {
+        BestScoreRepository bsRepository = new BestScoreRepository();
+        int minScore = bsRepository.getMinScore(category, level);
+
+        if (minScore == 0 || score < minScore)
+        {
+            log.debug("Congratulation, new best score !");
+
+            log.debug("Displaying input dialog...");
+
+            String playerName = JOptionPane.showInputDialog(null, I18N.lang("framegame.inputdialog.text"), I18N.lang("framegame.inputdialog.title"), JOptionPane.PLAIN_MESSAGE);
+
+            log.debug("User answer input : " + playerName);
+
+            playerName = (playerName != null) ? playerName : I18N.lang("framegame.playerName.default");
+
+            // insert new best score line in db :
+            BestScoreBean obj = new BestScoreBean();
+
+            obj.setPlayerName(playerName);
+            obj.setGameDate(new Date());
+            obj.setGameCategory(category);
+            obj.setGameLevel(level);
+            obj.setGameScore(score);
+
+            bsRepository.create(obj);
         }
     }
 

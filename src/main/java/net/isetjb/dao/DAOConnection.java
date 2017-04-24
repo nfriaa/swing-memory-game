@@ -21,50 +21,66 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package net.isetjb;
+package net.isetjb.dao;
 
-import net.isetjb.config.I18N;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import net.isetjb.config.PROP;
-import net.isetjb.dao.DAOInitializer;
 import org.apache.log4j.Logger;
 
 /**
- * Application class.
+ * Singleton with lazy init.
  *
  * @author Nafaa Friaa (nafaa.friaa@isetjb.rnu.tn)
  */
-public class Application
+public class DAOConnection
 {
-    final static Logger log = Logger.getLogger(Application.class);
+    final static Logger log = Logger.getLogger(DAOConnection.class);
 
-    public static void main(String[] args)
+    private static String driver = PROP.getProperty("db.driver");
+
+    private static String url = PROP.getProperty("db.url");
+
+    private static String user = PROP.getProperty("db.user");
+
+    private static String password = PROP.getProperty("db.password");
+
+    private static Connection connection;
+
+    /**
+     * Private constructor so this class cannot be instantiated only by it self.
+     */
+    private DAOConnection()
     {
-        log.info("Initializing the application...");
-
-        PROP.init();
-        I18N.init();
-        macosConfig();
-        DAOInitializer.init();
-
-        log.info("Starting " + PROP.getProperty("app.finalName") + " Application...");
-
-        // display the desktop frame :
-        new Desktop();
-
-        log.info("Application " + PROP.getProperty("app.finalName") + " started.");
     }
 
     /**
-     * Special settting for macOS.
+     * Create and return the Connection if not exist.
+     *
+     * @return The connection object
      */
-    public static void macosConfig()
+    public static Connection getInstance()
     {
-        if (System.getProperty("os.name").contains("Mac"))
+        if (connection == null)
         {
-            log.debug("Special settings for macOS users...");
+            try
+            {
+                Class.forName(driver);
+            } catch (ClassNotFoundException e)
+            {
+                log.error("DB Driver error : " + e);
+            }
 
-            // take the menu bar off the jframe :
-            System.setProperty("apple.laf.useScreenMenuBar", "true");
+            try
+            {
+                connection = DriverManager.getConnection(url, user, password);
+            } catch (SQLException e)
+            {
+                log.error("DB Connection error : " + e);
+            }
         }
+
+        return connection;
     }
 }

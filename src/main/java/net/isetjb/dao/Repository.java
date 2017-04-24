@@ -21,50 +21,53 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package net.isetjb;
+package net.isetjb.dao;
 
-import net.isetjb.config.I18N;
-import net.isetjb.config.PROP;
-import net.isetjb.dao.DAOInitializer;
-import org.apache.log4j.Logger;
+import java.util.ArrayList;
 
 /**
- * Application class.
+ * Interface Repository to define methods to be implemented.
  *
  * @author Nafaa Friaa (nafaa.friaa@isetjb.rnu.tn)
  */
-public class Application
+public interface Repository<T>
 {
-    final static Logger log = Logger.getLogger(Application.class);
-
-    public static void main(String[] args)
-    {
-        log.info("Initializing the application...");
-
-        PROP.init();
-        I18N.init();
-        macosConfig();
-        DAOInitializer.init();
-
-        log.info("Starting " + PROP.getProperty("app.finalName") + " Application...");
-
-        // display the desktop frame :
-        new Desktop();
-
-        log.info("Application " + PROP.getProperty("app.finalName") + " started.");
-    }
+    /**
+     * Find one item by id and return it if exist / else return null.
+     *
+     * @param id
+     * @return
+     */
+    public T find(long id);
 
     /**
-     * Special settting for macOS.
+     * Find all items and return a list.
+     *
+     * @return
      */
-    public static void macosConfig()
-    {
-        if (System.getProperty("os.name").contains("Mac"))
-        {
-            log.debug("Special settings for macOS users...");
+    public ArrayList<T> findAll();
 
-            // take the menu bar off the jframe :
-            System.setProperty("apple.laf.useScreenMenuBar", "true");
-        }
-    }
+    /**
+     * Create a new object and return it / else return null.
+     *
+     * @param obj
+     * @return
+     */
+    public T create(T obj);
+
+    /**
+     * Update an existant object and return it / else return null.
+     *
+     * @param obj
+     * @return
+     */
+    public T update(T obj);
+
+    /**
+     * Delete an item by id and return 1 on success.
+     *
+     * @param id
+     * @return
+     */
+    public int delete(long id);
 }
