@@ -27,7 +27,6 @@ import net.isetjb.config.I18N;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JDesktopPane;
@@ -155,7 +154,7 @@ public class Desktop extends JFrame
         {
             log.debug("ActionEvent on " + ev.getActionCommand());
 
-            // refresh data :
+            // refresh data (-1 to get all items without filtering):
             bsFrame.jTable1.setModel(bsFrame.getData(-1, -1));
 
             bsFrame.setVisible(true);

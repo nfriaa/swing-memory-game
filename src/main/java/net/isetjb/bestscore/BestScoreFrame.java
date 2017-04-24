@@ -25,16 +25,12 @@ package net.isetjb.bestscore;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -80,7 +76,7 @@ public class BestScoreFrame extends JInternalFrame
         jPanelHeader.setBorder(BorderFactory.createTitledBorder(I18N.lang("bestscoreframe.jPanelHeader")));
         jPanelHeader.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        // filters :
+        // category filter :
         filterCategory.addItem("- " + I18N.lang("menubar.jMenuCategory") + " -");
         filterCategory.addItem(I18N.lang("menubar.jMenuItemCategory0"));
         filterCategory.addItem(I18N.lang("menubar.jMenuItemCategory1"));
@@ -98,6 +94,7 @@ public class BestScoreFrame extends JInternalFrame
 
         });
 
+        // level filter :
         filterLevel.addItem("- " + I18N.lang("menubar.jMenuLevel") + " -");
         filterLevel.addItem(I18N.lang("menubar.jMenuItemLevel0"));
         filterLevel.addItem(I18N.lang("menubar.jMenuItemLevel1"));

@@ -158,12 +158,14 @@ public class FrameGame extends JInternalFrame
                     button.setSelected(true);
                 }
 
+                // if try to select third btn => unSelect all others :
                 if (countSelectedButtons() == 3)
                 {
                     unSelectAllButtons();
                     button.setSelected(true);
                 }
 
+                // verify he if good attempt and if win the game :
                 verify();
             });
         }
@@ -174,6 +176,11 @@ public class FrameGame extends JInternalFrame
         log.debug("End of constructor.");
     }
 
+    /**
+     * Update the footer text with game status.
+     *
+     * @param success
+     */
     public void updatejLabelFooterText(boolean success)
     {
         // construct footer text :
@@ -200,6 +207,9 @@ public class FrameGame extends JInternalFrame
         jLabelFooter.setText(temp);
     }
 
+    /**
+     * Initialize icones in arraylist and shuffle.
+     */
     public void initIcones()
     {
         for (int i = 0; i < MAX_ICONES_NUMBER; i++)
@@ -210,6 +220,9 @@ public class FrameGame extends JInternalFrame
         Collections.shuffle(icones);
     }
 
+    /**
+     * Initialize buttons in arraylist and shuffle.
+     */
     public void initButtons()
     {
         // first half :
@@ -220,7 +233,7 @@ public class FrameGame extends JInternalFrame
             buttons.add(tempButton);
         }
 
-        // second half :
+        // second half (duplicate) :
         for (int i = 0; i < ICONES_NUMBER; i++)
         {
             JToggleButton tempButton = new JToggleButton(hiddenIcone);
@@ -231,6 +244,11 @@ public class FrameGame extends JInternalFrame
         Collections.shuffle(buttons);
     }
 
+    /**
+     * Count the selected and enabled buttons.
+     *
+     * @return
+     */
     public int countSelectedButtons()
     {
         int count = 0;
@@ -246,6 +264,11 @@ public class FrameGame extends JInternalFrame
         return count;
     }
 
+    /**
+     * Count the remaining and enabled buttons.
+     *
+     * @return
+     */
     public int countRemainingButtons()
     {
         int count = 0;
@@ -261,6 +284,9 @@ public class FrameGame extends JInternalFrame
         return count;
     }
 
+    /**
+     * Unselect all enabled buttons.
+     */
     public void unSelectAllButtons()
     {
         for (JToggleButton button : buttons)
@@ -272,6 +298,9 @@ public class FrameGame extends JInternalFrame
         }
     }
 
+    /**
+     * Verify if good attempt or not and if game success or not.
+     */
     public void verify()
     {
         ArrayList<JToggleButton> selection = new ArrayList<>();
@@ -308,6 +337,10 @@ public class FrameGame extends JInternalFrame
         }
     }
 
+    /**
+     * If game success, test if current score is best then all saved scores in
+     * database. If current score is best score then save new item in database.
+     */
     public void verifyBestScore()
     {
         BestScoreRepository bsRepository = new BestScoreRepository();

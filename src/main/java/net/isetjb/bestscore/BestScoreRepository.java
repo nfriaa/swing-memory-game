@@ -93,7 +93,7 @@ public class BestScoreRepository implements Repository<BestScoreBean>
         try
         {
             PreparedStatement prepared = DAOConnection.getInstance().prepareStatement(
-                    "SELECT * FROM best_scores");
+                    "SELECT * FROM best_scores ORDER BY game_score ASC");
 
             ResultSet result = prepared.executeQuery();
 
