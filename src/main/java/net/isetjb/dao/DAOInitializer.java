@@ -25,9 +25,6 @@ package net.isetjb.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
-import net.isetjb.bestscore.BestScoreBean;
-import net.isetjb.bestscore.BestScoreRepository;
 import net.isetjb.config.PROP;
 import org.apache.log4j.Logger;
 import org.h2.tools.Server;
@@ -97,11 +94,11 @@ public class DAOInitializer
     }
 
     /**
-     * Create tables in the database.
+     * Create tables in database.
      */
     private static void createTables()
     {
-        // products table :
+        // best_scores :
         String createQuery = "CREATE TABLE IF NOT EXISTS best_scores("
                 + "id INT PRIMARY KEY AUTO_INCREMENT,"
                 + "player_name VARCHAR(255),"
@@ -111,20 +108,12 @@ public class DAOInitializer
                 + "game_score INT"
                 + ")";
 
-        log.info("Creating table best_scores...");
+        log.info("Trying to create table best_scores IF NOT EXISTS...");
 
         try
         {
             PreparedStatement ps = DAOConnection.getInstance().prepareStatement(createQuery);
-            int affectedRows = ps.executeUpdate();
-
-            if (affectedRows > 0)
-            {
-                log.debug("Table best_scores created. Query affectedRows : " + affectedRows);
-            } else
-            {
-                log.debug("Table best_scores already exist. Query affectedRows : " + affectedRows);
-            }
+            ps.executeUpdate();
 
         } catch (SQLException e)
         {

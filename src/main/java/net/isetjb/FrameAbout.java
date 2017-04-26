@@ -59,7 +59,7 @@ public class FrameAbout extends JInternalFrame
 
         setTitle(I18N.lang("frameabout.title"));
         setLocation(new Random().nextInt(140) + 50, new Random().nextInt(150) + 50);
-        setSize(300, 400);
+        setSize(290, 400);
 
         setClosable(true);
         setIconifiable(true);

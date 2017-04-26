@@ -23,6 +23,7 @@
  */
 package net.isetjb;
 
+import javax.swing.UIManager;
 import net.isetjb.config.I18N;
 import net.isetjb.config.PROP;
 import net.isetjb.dao.DAOInitializer;
@@ -43,6 +44,7 @@ public class Application
 
         PROP.init();
         I18N.init();
+        look();
         macosConfig();
         DAOInitializer.init();
 
@@ -65,6 +67,26 @@ public class Application
 
             // take the menu bar off the jframe :
             System.setProperty("apple.laf.useScreenMenuBar", "true");
+        }
+    }
+
+    /**
+     * Apply system default look and feel L&F.
+     */
+    public static void look()
+    {
+        log.debug("Trying to apply default system look and feel...");
+
+        try
+        {
+            // Set to System L&F :
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+            log.debug("Success.");
+
+        } catch (Exception e)
+        {
+            log.debug("Error setting system look an feel : " + e);
         }
     }
 }
