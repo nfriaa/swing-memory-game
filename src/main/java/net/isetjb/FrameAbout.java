@@ -23,6 +23,7 @@
  */
 package net.isetjb;
 
+import java.awt.Color;
 import net.isetjb.config.I18N;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -59,7 +60,7 @@ public class FrameAbout extends JInternalFrame
 
         setTitle(I18N.lang("frameabout.title"));
         setLocation(new Random().nextInt(140) + 50, new Random().nextInt(150) + 50);
-        setSize(290, 400);
+        setSize(300, 400);
 
         setClosable(true);
         setIconifiable(true);
@@ -74,7 +75,7 @@ public class FrameAbout extends JInternalFrame
 
         jTextArea1.setText(I18N.lang("frameabout.jTextArea1"));
         jTextArea1.setEditable(false);
-        jTextArea1.setEnabled(false);
+        jTextArea1.setBackground(Color.orange);
 
         //add compnent to the frame :
         getContentPane().setLayout(new FlowLayout());

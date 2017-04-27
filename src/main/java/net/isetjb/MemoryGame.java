@@ -30,13 +30,13 @@ import net.isetjb.dao.DAOInitializer;
 import org.apache.log4j.Logger;
 
 /**
- * Application class.
+ * Main Application class.
  *
  * @author Nafaa Friaa (nafaa.friaa@isetjb.rnu.tn)
  */
-public class Application
+public class MemoryGame
 {
-    final static Logger log = Logger.getLogger(Application.class);
+    final static Logger log = Logger.getLogger(MemoryGame.class);
 
     public static void main(String[] args)
     {
@@ -44,8 +44,8 @@ public class Application
 
         PROP.init();
         I18N.init();
-        look();
         macosConfig();
+        //lookF();
         DAOInitializer.init();
 
         log.info("Starting " + PROP.getProperty("app.finalName") + " Application...");
@@ -73,14 +73,17 @@ public class Application
     /**
      * Apply system default look and feel L&F.
      */
-    public static void look()
+    public static void lookF()
     {
         log.debug("Trying to apply default system look and feel...");
 
         try
         {
             // Set to System L&F :
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
+            // Set cross-platform Java L&F (also called "Metal")
+            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
 
             log.debug("Success.");
 

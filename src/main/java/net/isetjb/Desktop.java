@@ -48,7 +48,7 @@ public class Desktop extends JFrame
     final static Logger log = Logger.getLogger(Desktop.class);
 
     JDesktopPane jDesktopPane = new JDesktopPane();
-    JLabel jLabelFooterState = new JLabel(I18N.lang("desktop.jLabelFooterState") + System.getProperty("os.name") + " " + System.getProperty("os.version"));
+    JLabel jLabelFooterState = new JLabel(I18N.lang("desktop.jLabelFooterState") + System.getProperty("os.name") + " " + System.getProperty("os.version") + " " + System.getProperty("os.arch") + " / Java " + System.getProperty("java.version"));
 
     // internal frames :
     FrameAbout frameAbout = new FrameAbout();
