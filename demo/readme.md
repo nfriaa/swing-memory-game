@@ -1,5 +1,5 @@
 # Demo Jar
-Download this demo jar to have an idea... 
+Download this demo jar to test the game... 
 
 ## run : 
 ```
