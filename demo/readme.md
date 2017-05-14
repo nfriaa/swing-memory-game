@@ -3,7 +3,7 @@ Download this demo jar to have an idea...
 
 ## run : 
 ```
-java -jar swing-desktop-starter
+java -jar swing-memory-game-1.0.0.jar
 ```
 
 ;-)

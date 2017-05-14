@@ -1,9 +1,8 @@
-# swing-desktop-starter-1.0.0
-A Sample Swing Desktop Application 
+# swing-memory-game-1.0.0
+Swing Memory Game
 
 ## Description
-A sample Swing Desktop Application / MDI (Multi Documents Interface) to help developers quickly start new project... 
-The application is pre-configured with Maven, Log4j and auto load properties files under `resources` folder.  
+A Swing based Memory Game with database best score management. The application is pre-configured with Maven, Log4j and auto load properties files under `resources` folder.  
 
 ## Dev tools
 * Java 
@@ -18,16 +17,16 @@ The application is pre-configured with Maven, Log4j and auto load properties fil
 ## Demo
 The demo folder contain a built final jar with dependencies that you can run to have an idea on the application : 
 ```
-java -jar swing-desktop-starter.jar 
+java -jar swing-memory-game.jar 
 ```
 ## Clone and create your project
 To use this code in your project or to start a new application using this approach you can type in terminal : 
 ```
-$ git clone https://github.com/nfriaa/swing-desktop-starter /your-local-path/your-project-name
+$ git clone https://github.com/nfriaa/swing-memory-game /your-local-path/your-project-name
 ```
 Also in pom.xml file change : 
 ```xml
-<artifactId>swing-desktop-starter</artifactId>
+<artifactId>swing-memory-game</artifactId>
 ```
 To : 
 ```xml
